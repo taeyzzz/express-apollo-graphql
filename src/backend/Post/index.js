@@ -14,7 +14,13 @@ const createPost = async ({ title, message, authorId }) => {
 }
 
 const listPostsByUsers = async (ids) => {
-  return DB.Post.findAll({ where: { authorId: ids }, raw: true })
+  const users  = await DB.User.findAll({
+    include: [DB.Post],
+    where: {
+      id: ids
+    }
+  })
+  return users.map(userData => userData.Posts)
 }
 
 module.exports = {
