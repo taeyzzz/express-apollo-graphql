@@ -18,8 +18,8 @@ const resolvers = {
     }
   },
   Post: {
-    author: async (parent) => {
-      return User.getUser(parent.authorId)
+    author: async (parent, args, context) => {
+      return context.loaders.usersByPosts.load(parent.authorId)
     }
   },
   Mutation: {
