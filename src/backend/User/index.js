@@ -1,6 +1,6 @@
-const DB = require("../db/models")
+const DB = require("../../db/models")
 
-const listALlUser = async () => {
+const listAllUser = async () => {
   return DB.User.findAll({ raw: true })
 }
 
@@ -8,12 +8,12 @@ const getUser = async (id) => {
   return DB.User.findByPk(id, { raw: true })
 }
 
-const usersByPosts = async (ids) => {
+const listUsersByPosts = async (ids) => {
   return DB.User.findAll({ where: { id: ids }, raw: true })
 }
 
 module.exports = {
-  listALlUser,
+  listAllUser,
   getUser,
-  usersByPosts
+  listUsersByPosts
 }
