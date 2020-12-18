@@ -19,12 +19,12 @@ const resolvers = {
   },
   User: {
     posts: async (parent, args, context) => {
-      return context.loaders.dataLoaderlistUsersByPosts.load(parent.id)
+      return context.loaders.dataLoaderListPostsByUsers.load(parent.id)
     }
   },
   Post: {
     author: async (parent, args, context) => {
-      return context.loaders.dataLoaderlistUsersByPosts.load(parent.authorId)
+      return context.loaders.dataLoaderListUserByPosts.load(parent.authorId)
     }
   },
   Mutation: {

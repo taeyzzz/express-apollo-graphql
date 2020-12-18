@@ -13,7 +13,7 @@ const createPost = async ({ title, message, authorId }) => {
   return createdPost;
 }
 
-const listUsersByPosts = async (ids) => {
+const listPostsByUsers = async (ids) => {
   return DB.Post.findAll({ where: { authorId: ids }, raw: true })
 }
 
@@ -21,5 +21,5 @@ module.exports = {
   listAllPost,
   getPost,
   createPost,
-  listUsersByPosts
+  listPostsByUsers
 }
