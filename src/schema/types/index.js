@@ -9,13 +9,14 @@ const typeDefs = gql`
   }
 
   type User {
-    id: ID!
+    id: Int!
+    username: String!
     name: String
     posts: [Post]
   }
 
   type Post {
-    id: ID!
+    id: Int!
     title: String
     message: String
     author: User
@@ -23,6 +24,7 @@ const typeDefs = gql`
 
   type Mutation {
     addPost(message: String, title: String, authorId: Int): Post
+    registerUser(username: String!, password: String!, name: String): User
   }
 `;
 

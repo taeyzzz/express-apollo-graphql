@@ -16,9 +16,15 @@ const listUsersByPosts = async (ids) => {
   return DB.User.findAll({ where: { id: ids }, raw: true })
 }
 
+const createUser = async ({ username, password, name }) => {
+  const createdUser = await DB.User.create({ username, password, name })
+  return createdUser
+}
+
 module.exports = {
   listAllUser,
   getUser,
   getUserByIds,
-  listUsersByPosts
+  listUsersByPosts,
+  createUser
 }

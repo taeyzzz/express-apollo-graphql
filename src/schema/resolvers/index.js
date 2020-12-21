@@ -1,6 +1,7 @@
 const DB = require("../../db/models")
 const Post = require("../../backend/Post")
 const User = require("../../backend/User")
+const Utils = require("../../backend/Utils")
 
 const resolvers = {
   Query: {
@@ -31,6 +32,11 @@ const resolvers = {
     addPost: async (_, { message, title, authorId }) => {
       const createdPost = await Post.createPost({ message, title, authorId })
       return createdPost
+    },
+    registerUser: async (_, { username, password, name }) => {
+      const hashResult = await Utils.hashPassword(password)
+      const createdUser = await User.createUser({ username, password: hashResult, name })
+      return createdUser
     }
   },
 }
