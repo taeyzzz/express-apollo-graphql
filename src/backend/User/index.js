@@ -1,4 +1,5 @@
 const DB = require("../../db/models")
+const Utils = require("../Utils")
 
 const listAllUser = async () => {
   return DB.User.findAll({ raw: true })
@@ -8,7 +9,7 @@ const getUser = async (id) => {
   return DB.User.findByPk(id, { raw: true })
 }
 
-const getUserByUsername = async (username) => {
+const login = async (username, password) => {
   const userData = await DB.User.findOne({
     where: {
       username
@@ -16,7 +17,13 @@ const getUserByUsername = async (username) => {
     raw: true
   })
   if(!userData) throw new Error("Not found")
-  return userData
+  const verified = await Utils.verifyPassword(password, userData.password)
+  if(!verified) throw new Error("Password is not match.")
+  return {
+    id: userData.id,
+    name: userData.name,
+    username: userData.username
+  }
 }
 
 const getUserByIds = async (ids) => {
@@ -38,5 +45,5 @@ module.exports = {
   getUserByIds,
   listUsersByPosts,
   createUser,
-  getUserByUsername
+  login
 }
