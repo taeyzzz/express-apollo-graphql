@@ -8,6 +8,17 @@ const getUser = async (id) => {
   return DB.User.findByPk(id, { raw: true })
 }
 
+const getUserByUsername = async (username) => {
+  const userData = await DB.User.findOne({
+    where: {
+      username
+    },
+    raw: true
+  })
+  if(!userData) throw new Error("Not found")
+  return userData
+}
+
 const getUserByIds = async (ids) => {
   return DB.User.findAll({ where: { id: ids } , raw: true })
 }
@@ -26,5 +37,6 @@ module.exports = {
   getUser,
   getUserByIds,
   listUsersByPosts,
-  createUser
+  createUser,
+  getUserByUsername
 }

@@ -30,13 +30,17 @@ const resolvers = {
   },
   Mutation: {
     addPost: async (_, { message, title, authorId }) => {
-      const createdPost = await Post.createPost({ message, title, authorId })
-      return createdPost
+      return Post.createPost({ message, title, authorId })
     },
     registerUser: async (_, { username, password, name }) => {
       const hashResult = await Utils.hashPassword(password)
-      const createdUser = await User.createUser({ username, password: hashResult, name })
-      return createdUser
+      return User.createUser({ username, password: hashResult, name })
+    },
+    login: async (_, { username, password }) => {
+      const userData = await User.getUserByUsername(username)
+      const verified = await Utils.verifyPassword(password, userData.password)
+      if(!verified) throw new Error("Password is not match.")
+      return userData
     }
   },
 }
