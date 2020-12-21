@@ -8,13 +8,13 @@ const resolvers = {
       return Post.listAllPost()
     },
     post: async (_, { id }, context, info) => {
-      return Post.getPost(id)
+      return context.loaders.dataLoaderListPostsByIds.load(id)
     },
     users: async () => {
       return User.listAllUser()
     },
     user: async (parent, { id }, context, info) => {
-      return User.getUser(id)
+      return context.loaders.dataLoaderListUserByIds.load(id)
     }
   },
   User: {
