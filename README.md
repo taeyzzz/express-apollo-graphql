@@ -14,3 +14,11 @@ npx sequelize-cli db:seed:all
 ```
 npm start
 ```
+
+# DB User
+| id             | name           | username       | password       |
+| :------------- | :------------- | :------------- | :------------- |
+
+# DB PostDataLoader
+| id             | title           | message       | authorId       |
+| :------------- | :------------- | :------------- | :------------- |

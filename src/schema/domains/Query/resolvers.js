@@ -9,12 +9,12 @@ const Utils = require("../../../backend/Utils")
 
 module.exports = {
   Query: {
-    posts: async () => {
+    posts: combineResolvers(ensureAuthenticated, async () => {
       return Post.listAllPost()
-    },
-    post: async (_, { id }, context, info) => {
+    }),
+    post: combineResolvers(ensureAuthenticated, async (_, { id }, context, info) => {
       return context.loaders.dataLoaderListPostsByIds.load(id)
-    },
+    }),
     users: combineResolvers(ensureAuthenticated, async () => {
       return User.listAllUser()
     }),
